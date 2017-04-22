@@ -1,0 +1,10 @@
+# ---   以下をgitの管理対象から外す   ---
+
+# 設定ファイル
+/config/settings.ini
+
+# バックアップファイル
+/backup_files/
+
+# mysqldumpのエラーログファイル
+/log/
