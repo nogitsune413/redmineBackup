@@ -12,6 +12,10 @@ function makeFolderIfNotExists($path){
     }
 }
 
+function getBackUpFileName($filenameExtension){
+    return "redmineBackup_" + (Get-Date -Format "yyyy-MMdd-HHmmss") + "." + $filenameExtension
+}
+
 # ---  初期化  ---
 
 # アクセスするリソースのパスをINIファイルから読み込みます。
@@ -39,11 +43,15 @@ Start-Process -NoNewWindow `
               -Wait
 
 # 取得したバックアップデータを圧縮します。
-Start-Process -NoNewWindow -FilePath $s._7zip -ArgumentList a,-sdel,(Join-Path $s.bkRoot work\redmineBackup.7z),(Join-Path $s.bkRoot work\files),(Join-Path $s.bkRoot work\databaseBackUp.sql) -Wait
-
-# バックアップファイルの末尾に日付を付加します。
-$backUpFile = "redmineBackup_" + (Get-Date -Format "yyyy-MMdd-HHmmss") + ".7z"
-Rename-Item (Join-Path $s.bkRoot work\redmineBackup.7z) -NewName $backUpFile
+$backUpFile = getBackUpFileName("7z")
+Start-Process -NoNewWindow `
+              -FilePath $s._7zip `
+              -ArgumentList a, `
+                            -sdel, `
+                            (Join-Path $s.bkRoot work | Join-Path -ChildPath $backUpFile), `
+                            (Join-Path $s.bkRoot work\files), `
+                            (Join-Path $s.bkRoot work\databaseBackUp.sql) `
+              -Wait
 
 # バックアップデータを保管用フォルダに移動します。
 Move-Item -Path (Join-Path $s.bkRoot work | Join-Path -ChildPath $backUpFile)  -Destination (Join-Path $s.bkRoot backup_files)
