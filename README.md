@@ -55,7 +55,7 @@ config\setteings.ini
 【操作の編集】
 操作：プログラムの開始
 プログラム/スクリプト：%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe
-引数の追加(オプション)：-Command "C:\Bitnami\redmineBackup\scripts\redmine_backup_script.ps1"
+引数の追加(オプション)：-Command "C:\Bitnami\redmineBackup\scripts\redmine_backup.ps1"
 ```
 
 ### 実行
