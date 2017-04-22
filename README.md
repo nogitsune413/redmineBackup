@@ -55,7 +55,7 @@ config\setteings.ini
 【操作の編集】
 操作：プログラムの開始
 プログラム/スクリプト：%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe
-引数の追加(オプション)：-Command "C:\Bitnami\redmine_3_3_2_2_data_backup\scripts\redmine_3_3_2_2_backup_script.ps1"
+引数の追加(オプション)：-Command "C:\Bitnami\redmineBackup\scripts\redmine_backup_script.ps1"
 ```
 
 ### 実行
@@ -79,14 +79,14 @@ C:
         │      dumpMySqlDataError.log
         │      
         ├─scripts
-        │      redmine_3_3_2_2_backup_script.ps1
+        │      redmine_backup.ps1
         │          
         └─work
 
 【外付けHDD】
 E:
 └─Bitnami
-    └─redmine_3_3_2_2_data_backup
+    └─redmine_data_backup
             redmineBackup_YYYY-MMDD-HHMMSS.7z
             redmineBackup_YYYY-MMDD-HHMMSS.7z
             redmineBackup_YYYY-MMDD-HHMMSS.7z
