@@ -1,12 +1,13 @@
 ﻿# ---  ヘルパー関数  ---
 
 function initializeFolders ($settings) {
-    makeFolderIfNotExists (Join-Path $settings.bkRoot work)
-    makeFolderIfNotExists (Join-Path $settings.bkRoot backup_files)
-    makeFolderIfNotExists ($settings.mir)
+    createFolderIfNotExists (Join-Path $settings.bkRoot work)
+    createFolderIfNotExists (Join-Path $settings.bkRoot log)
+    createFolderIfNotExists (Join-Path $settings.bkRoot backup_files)
+    createFolderIfNotExists ($settings.mir)
 }
 
-function makeFolderIfNotExists($path){
+function createFolderIfNotExists($path){
     if(-not (Test-Path $path)){
         New-Item $path -ItemType Directory
     }
