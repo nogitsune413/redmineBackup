@@ -19,7 +19,7 @@ function getBackUpFileName($filenameExtension){
 
 # ---  初期化  ---
 
-# プログラムのルートフォルダを取得。
+# プログラムのルートフォルダを取得します。
 $bkRoot = Split-Path $MyInvocation.MyCommand.Path -Parent | Split-Path -Parent
 
 # アクセスするリソースのパスをINIファイルから読み込みます。
