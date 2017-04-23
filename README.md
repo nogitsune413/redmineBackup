@@ -27,10 +27,13 @@ Windowsのタスクスケジューラを用いた、定期的なバックアッ�
 設定ファイルのテンプレートが以下にあるので、コピーしてファイル名をsettings.iniに変更し、保存します。
 
 - 設定ファイルのテンプレート
-config/settings-template.ini
-
-- 設定ファイル
+```
+config/settings-template.ini 
+```
+- 作成する設定ファイル
+```
 config/settings.ini
+```
 
 ##### 処理対象フォルダとコマンドラインツール(EXEファイル)のパスを設定します。
 Redmineの画像フォルダや、ミラーリング先のバックアップフォルダなどのパス情報を設定ファイルに追記します。
@@ -38,9 +41,9 @@ Redmineの画像フォルダや、ミラーリング先のバックアップフ�
 ##### MySqlへのログイン情報を設定します。
 redmineのデータが入っているmysqlのDBをダンプするには、DBにアクセスするためのユーザID/パスワードが必要になります。
 このアカウント情報は、以下に記述されています。
-
+```
 (Bitnamiのインストール先)\apps\redmine\htdocs\config\database.yml
-```ファイル
+
 production:
   adapter: xxx
   database: xxx
@@ -62,7 +65,7 @@ production:
 【操作の編集】
 操作：プログラムの開始
 プログラム/スクリプト：%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe
-引数の追加(オプション)：-Command "C:\Bitnami\redmineBackup\scripts\redmine_backup.ps1"
+引数の追加(オプション)：-Command "(当スクリプトの配置先)\redmineBackup\scripts\redmine_backup.ps1"
 ```
 
 ### 実行
