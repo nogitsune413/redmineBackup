@@ -36,12 +36,9 @@ Copy-Item -Path $s.files -Destination (Join-Path $bkRoot work) -Recurse
 # mySqlに格納されているデータをworkフォルダに取得します。
 Start-Process -NoNewWindow `
               -FilePath $s.mysqldump `
-              -ArgumentList ("--user=" + $s.user), `
-                            ("--password=" + $s.password), `
-                            ("--host=" + $s.host), `
-                            ("--port=" + $s.port), `
-                            ("--result-file=" + (Join-Path $bkRoot $s.resultFile)), `
-                            ("--log-error=" + (Join-Path $bkRoot $s.logError)), `
+              -ArgumentList ("--defaults-file=" + (Join-Path $bkRoot config\mysqldump-options.ini)) , `
+                            ("--result-file=" + (Join-Path $bkRoot work\databaseBackUp.sql)), `
+                            ("--log-error=" + (Join-Path $bkRoot log\dumpMySqlDataError.log)), `
                             $s.dbname `
               -Wait
 

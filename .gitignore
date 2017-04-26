@@ -3,6 +3,9 @@
 # 設定ファイル
 /config/settings.ini
 
+# mysqldumpコマンドの引数が記述されているオプションファイル
+/config/mysqldump-options.ini
+
 # バックアップファイル
 /backup_files/
 
