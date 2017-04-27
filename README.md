@@ -17,6 +17,7 @@ Windowsのタスクスケジューラを用いた、定期的なバックアッ�
 
 ### 前提
 以下がインストールされていること
+
 - Redmine：Bitnamiのオールインワン・パッケージ
 - 7-zip
 
@@ -24,15 +25,24 @@ Windowsのタスクスケジューラを用いた、定期的なバックアッ�
 #### 設定ファイルの作成
 ##### テンプレートをコピーしてファイルを作成します。
 
-設定ファイルのテンプレートが以下にあるので、コピーしてファイル名をsettings.iniに変更し、保存します。
+設定ファイルのテンプレートが以下にあるので、コピーしてファイル名から「-template」を削除し、保存します。
 
 - 設定ファイルのテンプレート
 ```
+[当アプリの設定ファイルのテンプレート]
 config/settings-template.ini 
+
+[ダンプツールmysqldump.exeのオプションファイルのテンプレート]
+config/mysqldump-options-template.ini
 ```
+
 - 作成する設定ファイル
 ```
+[当アプリの設定ファイル]
 config/settings.ini
+
+[ダンプツールmysqldump.exeのオプションファイル]
+config/mysqldump-options.ini
 ```
 
 ##### 処理対象フォルダとコマンドラインツール(EXEファイル)のパスを設定します。
@@ -54,7 +64,7 @@ production:
   port: xxx
 ```
 
-この情報を設定ファイルに追記します。
+この情報をオプションファイルに追記します。
 
 #### タスクスケジューラへの登録
 
@@ -84,6 +94,7 @@ C:
         │
         ├─config
         │      settings.ini
+        │      mysqldump-options.ini
         │
         ├─log
         │      dumpMySqlDataError.log
@@ -101,3 +112,11 @@ E:
             redmineBackup_YYYY-MMDD-HHMMSS.7z
             redmineBackup_YYYY-MMDD-HHMMSS.7z
 ```
+
+## 補足
+圧縮には、Power ShellのCompress-Archive関数を使っても良いと思いますが、Compress-Archive関数のバグを報告するWebサイトの記事をいくつか見かけたので、今回は7-zipを使って実装しました。
+簡単なプログラムですので、標準関数であるCompress-Archiveを使いたい方は、Power Shell内に書かれた、圧縮処理のコードを書き換えてください。
+
+【バグを報告しているサイト】<br />
+[powershellのcompress-archiveコマンドで作成したzipに潜むちょっとした罠](http://qiita.com/noranuk0/items/cb9de67bfc269391bf6e)<br />
+[これで解消！「KB2704299」でCompress-Archiveの文字化け対処](https://cheshire-wara.com/powershell/ps-column/compress-archive-resolved/)
