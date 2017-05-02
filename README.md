@@ -125,3 +125,11 @@ E:
 【バグを報告しているサイト】<br />
 [powershellのcompress-archiveコマンドで作成したzipに潜むちょっとした罠](http://qiita.com/noranuk0/items/cb9de67bfc269391bf6e)<br />
 [これで解消！「KB2704299」でCompress-Archiveの文字化け対処](https://cheshire-wara.com/powershell/ps-column/compress-archive-resolved/)
+
+## 動作環境
+Power Shell 5.1<br />
+7-zip 16.04<br />
+Bitnami Redmine Stack 3.3.2-2<br />
+&nbsp;&nbsp;&nbsp;・Redmine 3.3.2<br />
+&nbsp;&nbsp;&nbsp;・MySQL 5.6.35<br />
+windows 10 Home
