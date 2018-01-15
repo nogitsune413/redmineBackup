@@ -103,6 +103,7 @@ C:
         │
         ├─log
         │      dumpMySqlDataError.log
+        │      redmineBackup.log
         │      
         ├─scripts
         │      redmine_backup.ps1
