@@ -43,10 +43,6 @@ initializeFolders $bkRoot $s
 deleteFileIfExists (Join-Path $bkRoot log\redmineBackup.log)
 
 # ---  バックアップ  ---
-
-log "添付ファイルが格納されているfilesフォルダをworkフォルダにコピーします。" $bkRoot
-Copy-Item -Path $s.files -Destination (Join-Path $bkRoot work) -Recurse
-
 log "mySqlに格納されているデータをworkフォルダに取得します。" $bkRoot
 Start-Process -NoNewWindow `
               -FilePath $s.mysqldump `
@@ -56,20 +52,18 @@ Start-Process -NoNewWindow `
                             $s.dbname `
               -Wait
 
-log "取得したバックアップデータを圧縮します。" $bkRoot
+log "画像ファイルとMySQLデータベースのバックアップをひとつのアーカイブファイルに圧縮します。" $bkRoot
 $backUpFile = getBackUpFileName "7z"
 Start-Process -NoNewWindow `
               -FilePath $s._7zip `
               -ArgumentList a, `
-                            -sdel, `
-                            (Join-Path $bkRoot work | Join-Path -ChildPath $backUpFile), `
-                            (Join-Path $bkRoot work\files), `
+                            (Join-Path $bkRoot backup_files | Join-Path -ChildPath $backUpFile), `
+                            $s.files, `
                             (Join-Path $bkRoot work\databaseBackUp.sql) `
               -Wait
 
-
-log "バックアップデータを保管用フォルダに移動します。" $bkRoot
-Move-Item -Path (Join-Path $bkRoot work | Join-Path -ChildPath $backUpFile) -Destination (Join-Path $bkRoot backup_files)
+log "WORKフォルダをクリアします。" $bkRoot
+deleteFileIfExists (Join-Path $bkRoot work\databaseBackUp.sql)
 
 log "4世代以前のバックアップファイルを削除します。" $bkRoot
 Get-ChildItem (Join-Path $bkRoot backup_files) |
@@ -77,10 +71,7 @@ Sort-Object CreationTime -Descending |
 Select-Object -Skip 3 |
 foreach{Remove-Item -Path $_.FullName}
 
-
 # ---  ミラーリング  ---
-
-
 log "バックアップファイルを外付けHDDとミラーリングします。" $bkRoot
 if((Join-Path $bkRoot backup_files | Get-ChildItem | Measure-Object).Count -ne 0){ # 万が一、コピー元が空で同期してしまうと、コピー先のファイルが全部消えるので。
     ROBOCOPY (Join-Path $bkRoot backup_files) $s.mir /MIR
